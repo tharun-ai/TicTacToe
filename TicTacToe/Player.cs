@@ -6,12 +6,39 @@ namespace TicTacToe
 {
     public class Player
     {
-        public string Name { get; set; }
-        public char Symbol { get; set; }
-        public Player(string name, char symbol)
+        char symbol;
+        int row, Column;
+        private string Name { get; set; }
+
+        public Player(char symbol)
         {
-            Name = name;
-            Symbol = symbol;
+            this.symbol = symbol;
+            Console.WriteLine($"Enter name for player {symbol}: ");
+            Name = Console.ReadLine();
+        }
+
+        public void MakeMove(Board board)
+        {
+            while(true)
+            {
+                Console.WriteLine($"{Name} ({symbol}), enter your move (row and column): ");
+                row = int.Parse(Console.ReadLine());
+                Column = int.Parse(Console.ReadLine());
+                if (board.IsValidMove(row, Column))
+                {
+                    board.setCurrentRowCol(row, Column);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid move. Please try again.");
+                }
+            }
+        }
+
+        public char GetSymbol()
+        {
+            return symbol;
         }
     }
 }
